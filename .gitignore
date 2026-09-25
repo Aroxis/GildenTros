@@ -51,6 +51,11 @@ Thumbs.db
 *.exe
 *.war
 
+# The *.app rule above matches the C# project dir "GildedTros.App" on
+# case-insensitive filesystems; keep the project tracked (bin/ and obj/
+# inside it are still ignored by the rules at the top of this file).
+!CSharp/GildedTros.App/
+
 # Large media files
 *.mp4
 *.tiff
