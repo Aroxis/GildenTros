@@ -83,6 +83,35 @@ namespace GildedTros.App
             Assert.Equal(18, uglyVariableNames.Quality);
         }
 
+        [Theory]
+        [InlineData(SmellyDuplicateCodeName)]
+        [InlineData(SmellyLongMethodsName)]
+        [InlineData(SmellyUglyVariableNamesName)]
+        public void SmellyItems_DegradeFourTimesAsFast_AfterSellByDate(string name)
+        {
+            var item = new Item { Name = name, Quality = 20, SellIn = 0 };
+            var app = AppWith(item);
+
+            app.UpdateQuality();
+
+            Assert.Equal(16, item.Quality);   // -2 before + -2 more once the sell-by date has passed
+            Assert.Equal(-1, item.SellIn);
+        }
+
+        [Theory]
+        [InlineData(SmellyDuplicateCodeName)]
+        [InlineData(SmellyLongMethodsName)]
+        [InlineData(SmellyUglyVariableNamesName)]
+        public void SmellyItems_QualityNeverGoesNegative(string name)
+        {
+            var item = new Item { Name = name, Quality = 3, SellIn = 0 };
+            var app = AppWith(item);
+
+            app.UpdateQuality();
+
+            Assert.Equal(0, item.Quality);   // -4 would underflow; quality is floored at 0
+        }
+
         #endregion
 
         #region Tickets

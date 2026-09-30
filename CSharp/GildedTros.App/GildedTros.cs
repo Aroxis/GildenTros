@@ -14,6 +14,7 @@ namespace GildedTros.App
             new GoodWineUpdater(),
             new BackstagePassUpdater(),
             new LegendaryUpdater(),
+            new SmellyUpdater(),
             // Catch all, must remain last in any case
             new RegularUpdater(),
         };
